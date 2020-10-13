@@ -1,4 +1,0 @@
-#ifndef CSV_RANDOM_READER
-#define CSV_RANDOM_READER
-
-#endif

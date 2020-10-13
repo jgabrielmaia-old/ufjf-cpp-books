@@ -1,11 +1,14 @@
-main: main.o DAL/csv_reader.o ConsoleGUI/gui.o
-	g++ main.o csv_reader.o gui.o -o main
+main: main.o csv_reader.o gui.o random_reader.o
+	g++ main.o csv_reader.o gui.o random_reader.o -o main
 
-DAL/csv_reader.o: DAL/csv_reader.cpp
+csv_reader.o: DAL/csv_reader.cpp
 	g++ -c DAL/csv_reader.cpp
 
-ConsoleGUI/gui.o: ConsoleGUI/gui.cpp
+gui.o: ConsoleGUI/gui.cpp
 	g++ -c ConsoleGUI/gui.cpp
+
+random_reader.o: DAL/random_reader.cpp
+	g++ -c DAL/random_reader.cpp
 
 clean:
 	rm *.o main

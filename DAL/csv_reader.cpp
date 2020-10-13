@@ -7,15 +7,18 @@
 #include <iostream>
 using namespace std;
 
-void read_book_from_csv(Book **arr_books, FILE *stream, int take)
+Book** read_book_from_csv(FILE *stream, int take)
 {
+    Book **books = (Book **)malloc(take * sizeof(Book *));
     int m = 0;
     char line[1024];
 
     while (fgets(line, 1024, stream) && m < take)
     {
-        arr_books[m++] = get_fields(line);
+        books[m++] = get_fields(line);
     }
+
+    return books;
 }
 
 Book *get_fields(char *line)
