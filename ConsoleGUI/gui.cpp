@@ -34,7 +34,8 @@ void trace(TRACE_TYPE type, string message, int param)
         break;
     }
 
-    if(param != 0) {
+    if (param != 0)
+    {
         cout << param;
     }
 

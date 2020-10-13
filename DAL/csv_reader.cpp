@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-Book** read_book_from_csv(FILE *stream, int take)
+Book **read_book_from_csv(FILE *stream, int take)
 {
     Book **books = (Book **)malloc(take * sizeof(Book *));
     int m = 0;

@@ -6,7 +6,11 @@
 #include <iostream>
 using namespace std;
 
-enum TRACE_TYPE { INFO = 1, ERROR };
+enum TRACE_TYPE
+{
+    INFO = 1,
+    ERROR
+};
 
 void print_book(Book *b);
 void print_book_q(Book *b);
