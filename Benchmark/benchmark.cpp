@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 Book **sample(Book **books, int batch_size)
 {
@@ -31,6 +32,21 @@ void test(Book **books, int batch_size)
     {
         test_set = sample(books, batch_size);
     }
+}
+
+void timer(void (*sorter)(int to_sort[], int size), int to_sort[], int size)
+{
+    struct timeval begin, end;
+    gettimeofday(&begin, 0);
+
+    sorter(to_sort, size);
+
+    gettimeofday(&end, 0);
+    long seconds = end.tv_sec - begin.tv_sec;
+    long microseconds = end.tv_usec - begin.tv_usec;
+    double elapsed = seconds + microseconds * 1e-6;
+
+    printf("Time measured: %.3f seconds.\n", elapsed);
 }
 // número de comparações de chaves
 // número de cópias de registros
