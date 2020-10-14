@@ -12,8 +12,15 @@ enum TRACE_TYPE
     ERROR
 };
 
+const string empty_str = string();
+
 void print_book(Book *b);
 void print_book_q(Book *b);
-void trace(TRACE_TYPE type, string message, int param = 0);
+void print_message(TRACE_TYPE type, string message);
+void trace(TRACE_TYPE type, string message);
+void trace_i(TRACE_TYPE type, string message, int param);
+void trace_s(TRACE_TYPE type, string message, string param);
+void trace_d(TRACE_TYPE type, string message, double param);
+
 
 #endif

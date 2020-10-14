@@ -20,7 +20,7 @@ void print_book_q(Book *b)
     cout << b->id << endl;
 }
 
-void trace(TRACE_TYPE type, string message, int param)
+void print_message(TRACE_TYPE type, string message)
 {
     switch (type)
     {
@@ -33,11 +33,28 @@ void trace(TRACE_TYPE type, string message, int param)
     default:
         break;
     }
+}
 
-    if (param != 0)
-    {
-        cout << param;
-    }
-
+void trace(TRACE_TYPE type, string message)
+{
+    print_message(type, message);
     cout << endl;
+}
+
+void trace_i(TRACE_TYPE type, string message, int param)
+{
+    print_message(type, message);
+    cout << param << endl;
+}
+
+void trace_s(TRACE_TYPE type, string message, string param)
+{
+    print_message(type, message);
+    cout << param << endl;
+}
+
+void trace_d(TRACE_TYPE type, string message, double param)
+{
+    print_message(type, message);
+    cout << param << endl;
 }
