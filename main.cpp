@@ -9,7 +9,7 @@ Book **sample(Book **books, int batch_size);
 
 int main(int argc, char const *argv[])
 {
-    int library_size = 10;
+    int library_size = 1000;
     Book **books = (Book **)malloc(library_size * sizeof(Book *));
     FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 

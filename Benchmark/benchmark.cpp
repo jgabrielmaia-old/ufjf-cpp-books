@@ -60,5 +60,12 @@ void timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_
     long microseconds = end.tv_usec - begin.tv_usec;
     double elapsed = seconds + microseconds * 1e-6;
 
+    cout<< endl;
+    for (size_t i = 0; i < size; i++)
+    {
+        print_book_t(to_sort[i]);
+    }
+    cout<< endl;
+
     trace_d(INFO, "Time measured in seconds: ", elapsed);
 }

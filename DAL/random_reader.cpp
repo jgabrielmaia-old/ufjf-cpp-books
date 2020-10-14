@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-int MAX_LIMIT = 10;
+int MAX_LIMIT = 1000;
 
 Book **get_random_books(Book **books, int batch_size)
 {
