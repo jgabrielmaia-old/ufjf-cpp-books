@@ -40,7 +40,7 @@ Book **sample(Book **books, int batch_size)
 
 void run(string name, void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size)
 {
-    trace_s(INFO, "Ordenando livros com algoritno ", name);
+    trace_s(INFO, "Ordenar livros com algoritmo ", name);
     int swap_count = 0;
     int compare_count = 0;
     timer(sorter, to_sort, size, swap_count, compare_count);
@@ -51,11 +51,13 @@ void run(string name, void (*sorter)(Book **to_sort, int size, int swap_count, i
 void timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size, int swap_count, int compare_count)
 {
     struct timeval begin, end;
+    trace(INFO, "Contador ativado!");
     gettimeofday(&begin, 0);
 
     sorter(to_sort, size, swap_count, compare_count);
 
     gettimeofday(&end, 0);
+    trace(INFO, "Contador parado!");
     long seconds = end.tv_sec - begin.tv_sec;
     long microseconds = end.tv_usec - begin.tv_usec;
     double elapsed = seconds + microseconds * 1e-6;
