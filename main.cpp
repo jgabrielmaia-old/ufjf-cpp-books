@@ -1,6 +1,7 @@
 #include "Model/book.h"
 #include "GUI/gui.h"
 #include "DAL/csv_reader.h"
+#include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
 
 #include <stdlib.h>
