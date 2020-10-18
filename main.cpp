@@ -18,7 +18,8 @@ int main(int argc, char const *argv[])
 
     delete stream;
 
-    benchmark(books);
+    string result = benchmark(books);
 
+    write_to_file("saida.txt", result);
     return 0;
 }
