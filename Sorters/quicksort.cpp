@@ -2,6 +2,7 @@
 #include "quicksort.h"
 #include <stdio.h>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ int partition(Book **to_sort, int low, int high)
     for (int j = low; j <= high - 1; j++)
     {
         // If current element is smaller than the pivot
-        if (to_sort[j] < pivot)
+        if ((strcmp(to_sort[j]->title, pivot->title) < 0))
         {
             i++; // increment index of smaller element
             swap(to_sort[i], to_sort[j]);
