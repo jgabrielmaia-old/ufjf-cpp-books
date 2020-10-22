@@ -29,7 +29,7 @@ int partition(Book **to_sort, int low, int high, int swap_count, int compare_cou
     Book *pivot = to_sort[high]; 
     int i = (low - 1);           // Index of smaller element
 
-    for (int j = low; j <= high - 1; j++)
+    for (int j = low; ++compare_count > 0 && j <= high - 1; j++)
     {
         // If current element is smaller than the pivot
         if (++compare_count > 0 && (strcmp(to_sort[j]->title, pivot->title) < 0))
