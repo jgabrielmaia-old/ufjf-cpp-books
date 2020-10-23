@@ -28,6 +28,7 @@ int partition(Book **to_sort, int low, int high, int copy_count, int compare_cou
         int compare = strcmp(to_sort[j]->title, pivot->title);
         if (compare < 0 || compare == 0)
         {
+            compare_count++;
             i++;
             swap(to_sort[i], to_sort[j], copy_count);
         }
@@ -41,4 +42,5 @@ void swap(Book *a, Book *b, int copy_count)
     Book t = *a;
     *a = *b;
     *b = t;
+    copy_count++;
 }
