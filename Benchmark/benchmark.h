@@ -6,7 +6,7 @@
 #include "../DAL/random_reader.h"
 #include "../Sorters/sorters.h"
 
-string benchmark(Book **books);
+string benchmark(Book **books, int* tests, int size);
 string test(Book **books, int batch_size);
 Book **sample(Book **books, int batch_size);
 string run(string name, void (*sorter)(Book **to_sort, int size, int copy_count, int compare_count), Book **to_sort, int size);

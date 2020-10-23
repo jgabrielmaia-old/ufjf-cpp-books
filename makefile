@@ -1,5 +1,5 @@
-main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o
-	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o -o main
+main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o
+	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o -o main
 
 csv_reader.o: DAL/csv_reader.cpp
 	g++ -c DAL/csv_reader.cpp
@@ -21,6 +21,9 @@ insertionsort.o: Sorters/insertionsort.cpp
 
 output_writer.o: DAL/output_writer.cpp
 	g++ -c DAL/output_writer.cpp
+
+input_reader.o: DAL/input_reader.cpp
+	g++ -c DAL/input_reader.cpp
 
 clean:
 	rm *.o main

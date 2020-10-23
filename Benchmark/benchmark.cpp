@@ -5,14 +5,14 @@
 #include <sys/time.h>
 #include <string>
 
-string benchmark(Book **books)
+string benchmark(Book **books, int *tests, int size)
 {
     string result;
-    result += test(books, 1'000);
-    result += test(books, 5'000);
-    result += test(books, 10'000);
-    result += test(books, 50'000);
-    result += test(books, 100'000);
+    for (size_t i = 0; i < size; i++)
+    {
+        trace_i(INFO, "Amostra de tamanho ", tests[i]);
+        result += test(books, tests[i]);
+    }
 
     trace(INFO, "All tests finished.");
 
@@ -27,7 +27,7 @@ string test(Book **books, int batch_size)
     result += "---------------------------------------------------\r\n";
     for (size_t i = 0; i < 5; i++)
     {
-        trace_i(INFO, "Execução ", i+1);
+        trace_i(INFO, "Execução ", i + 1);
         result += "- Execução " + to_string(i + 1) + "\r\n";
         result += run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
         result += run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
