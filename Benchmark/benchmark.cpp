@@ -22,7 +22,7 @@ void test(Book **books, int batch_size)
     for (size_t i = 0; i < 5; i++)
     {
         run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
-        // run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
+        run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
     }
 }
 
