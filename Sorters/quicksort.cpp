@@ -10,7 +10,6 @@ void quicksort(Book **to_sort, int size, int swap_count, int compare_count)
 {
 
     sort(to_sort, 0, size - 1, swap_count, compare_count);
-    printArray(to_sort, size);
 }
 
 void sort(Book **to_sort, int low, int high, int swap_count, int compare_count)
@@ -26,8 +25,8 @@ void sort(Book **to_sort, int low, int high, int swap_count, int compare_count)
 
 int partition(Book **to_sort, int low, int high, int swap_count, int compare_count)
 {
-    Book *pivot = to_sort[high]; 
-    int i = (low - 1);           // Index of smaller element
+    Book *pivot = to_sort[high];
+    int i = (low - 1); // Index of smaller element
 
     for (int j = low; ++compare_count > 0 && j <= high - 1; j++)
     {
@@ -48,12 +47,4 @@ void swap(Book *a, Book *b, int swap_count)
     a = b;
     b = t;
     swap_count = swap_count + 3;
-}
-
-void printArray(Book **to_sort, int size)
-{
-    int i;
-    for (i = 0; i < size; i++)
-        cout << to_sort[i] << " ";
-    cout << endl;
 }
