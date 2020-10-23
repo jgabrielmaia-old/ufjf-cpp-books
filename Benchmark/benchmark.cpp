@@ -27,9 +27,8 @@ string test(Book **books, int batch_size)
     result+= "---------------------------------------------------\r\n";
     for (size_t i = 0; i < 5; i++)
     {
-        result+= "Execução " + to_string(i) + "\r\n";
-        result+= run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
-        // run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
+        run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
+        run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
     }
 
     return result;
