@@ -27,6 +27,7 @@ string test(Book **books, int batch_size)
     result += "---------------------------------------------------\r\n";
     for (size_t i = 0; i < 5; i++)
     {
+        trace_i(INFO, "Execução ", i+1);
         result += "- Execução " + to_string(i + 1) + "\r\n";
         result += run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
         result += run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
@@ -47,32 +48,32 @@ Book **sample(Book **books, int batch_size)
     return random_book_set;
 }
 
-string run(string name, void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size)
+string run(string name, void (*sorter)(Book **to_sort, int size, int copy_count, int compare_count), Book **to_sort, int size)
 {
     string result;
     trace_s(INFO, "Ordenar livros com algoritmo ", name);
     result += "Ordenador: " + name + "\r\n";
-    int swap_count = 0;
+    int copy_count = 0;
     int compare_count = 0;
-    double elapsed = timer(sorter, to_sort, size, swap_count, compare_count);
-    trace_i(INFO, "Swaps: ", swap_count);
+    double elapsed = timer(sorter, to_sort, size, copy_count, compare_count);
+    trace_i(INFO, "Copies: ", copy_count);
     trace_i(INFO, "Comparações : ", compare_count);
 
-    result += "Swaps: " + to_string(swap_count) + "\r\n";
-    result += "Comparações: " + to_string(swap_count) + "\r\n";
+    result += "Copies: " + to_string(copy_count) + "\r\n";
+    result += "Comparações: " + to_string(copy_count) + "\r\n";
     result += "Tempo: " + to_string(elapsed) + "\r\n";
     result += "\r\n";
 
     return result;
 }
 
-double timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size, int swap_count, int compare_count)
+double timer(void (*sorter)(Book **to_sort, int size, int copy_count, int compare_count), Book **to_sort, int size, int copy_count, int compare_count)
 {
     struct timeval begin, end;
     trace(INFO, "Contador ativado!");
     gettimeofday(&begin, 0);
 
-    sorter(to_sort, size, swap_count, compare_count);
+    sorter(to_sort, size, copy_count, compare_count);
 
     gettimeofday(&end, 0);
     trace(INFO, "Contador parado!");
