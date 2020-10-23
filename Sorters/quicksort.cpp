@@ -8,7 +8,6 @@ using namespace std;
 
 void quicksort(Book **to_sort, int size, int swap_count, int compare_count)
 {
-
     sort(to_sort, 0, size - 1, swap_count, compare_count);
 }
 
@@ -28,10 +27,11 @@ int partition(Book **to_sort, int low, int high, int swap_count, int compare_cou
     Book *pivot = to_sort[high];
     int i = (low - 1); // Index of smaller element
 
-    for (int j = low; ++compare_count > 0 && j <= high - 1; j++)
+    for (int j = low; j <= high - 1; j++)
     {
         // If current element is smaller than the pivot
-        if (++compare_count > 0 && (strcmp(to_sort[j]->title, pivot->title) < 0))
+        int compare = strcmp(to_sort[j]->title, pivot->title);
+        if (compare < 0 || compare == 0)
         {
             i++; // increment index of smaller element
             swap(to_sort[i], to_sort[j], swap_count);
@@ -43,8 +43,7 @@ int partition(Book **to_sort, int low, int high, int swap_count, int compare_cou
 
 void swap(Book *a, Book *b, int swap_count)
 {
-    Book *t = a;
-    a = b;
-    b = t;
-    swap_count = swap_count + 3;
+    Book t = *a;
+    *a = *b;
+    *b = t;
 }
