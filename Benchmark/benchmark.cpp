@@ -5,25 +5,33 @@
 #include <sys/time.h>
 #include <string>
 
-void benchmark(Book **books)
+string benchmark(Book **books)
 {
-    test(books, 10);
+    string result;
+    result+= test(books, 10);
     // test(books, 5'000);
     // test(books, 10'000);
     // test(books, 50'000);
     // test(books, 100'000);
 
     trace(INFO, "All tests finished.");
+
+    return result;
 }
 
-void test(Book **books, int batch_size)
+string test(Book **books, int batch_size)
 {
+    string result;
     srand(time(0));
+    result+= "Tamanho da amostra: " + to_string(batch_size) + "\r\n";
+    result+= "---------------------------------------------------\r\n";
     for (size_t i = 0; i < 5; i++)
     {
         run("Insertion Sort", insertionsort, sample(books, batch_size), batch_size);
         run("Quick Sort", quicksort, sample(books, batch_size), batch_size);
     }
+
+    return result;
 }
 
 Book **sample(Book **books, int batch_size)
@@ -38,17 +46,26 @@ Book **sample(Book **books, int batch_size)
     return random_book_set;
 }
 
-void run(string name, void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size)
+string run(string name, void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size)
 {
+    string result;
     trace_s(INFO, "Ordenar livros com algoritmo ", name);
     int swap_count = 0;
     int compare_count = 0;
-    timer(sorter, to_sort, size, swap_count, compare_count);
+    double elapsed = timer(sorter, to_sort, size, swap_count, compare_count);
     trace_i(INFO, "Swaps: ", swap_count);
     trace_i(INFO, "Comparações : ", compare_count);
+
+    result+= "Ordenador:" + name + "\r\n";
+    result+= "Swaps: " + to_string(swap_count) + "\r\n";
+    result+= "Comparações: " + to_string(swap_count) + "\r\n";
+    result+= "Tempo: " + to_string(elapsed) + "\r\n";
+    result+= "\r\n";
+
+    return result;
 }
 
-void timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size, int swap_count, int compare_count)
+double timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_count), Book **to_sort, int size, int swap_count, int compare_count)
 {
     struct timeval begin, end;
     trace(INFO, "Contador ativado!");
@@ -70,4 +87,6 @@ void timer(void (*sorter)(Book **to_sort, int size, int swap_count, int compare_
     cout<< endl;
 
     trace_d(INFO, "Time measured in seconds: ", elapsed);
+
+    return elapsed;
 }

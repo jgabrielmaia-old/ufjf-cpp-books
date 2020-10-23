@@ -1,6 +1,7 @@
 #include "Model/book.h"
 #include "GUI/gui.h"
 #include "DAL/csv_reader.h"
+#include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
 
 #include <stdlib.h>
@@ -17,7 +18,8 @@ int main(int argc, char const *argv[])
 
     delete stream;
 
-    benchmark(books);
+    string result = benchmark(books);
 
+    write_to_file("saida.txt", result);
     return 0;
 }
