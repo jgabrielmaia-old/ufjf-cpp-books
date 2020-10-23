@@ -23,5 +23,4 @@ void trace_i(TRACE_TYPE type, string message, int param);
 void trace_s(TRACE_TYPE type, string message, string param);
 void trace_d(TRACE_TYPE type, string message, double param);
 
-
 #endif

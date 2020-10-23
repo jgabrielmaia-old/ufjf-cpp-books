@@ -2,7 +2,8 @@
 
 #include <string.h>
 
-void insertionsort(Book **to_sort, int size, int swap_count, int compare_count) {
+void insertionsort(Book **to_sort, int size, int swap_count, int compare_count)
+{
     int i, j;
     Book *pivot;
 
