@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-int *read_input(FILE *stream);
+int *read_input(FILE *stream, int size);
 int get_test_size(FILE *stream);
 
 #endif

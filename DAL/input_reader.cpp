@@ -3,12 +3,10 @@
 #include <stdlib.h>
 #include <string>
 
-int *read_input(FILE *stream)
+int *read_input(FILE *stream, int size)
 {
     int i = 0;
     char line[1024] = {0};
-    fgets(line, 1024, stream);
-    int size = atoi(line);
     int *input = (int *)malloc(size * sizeof(int));
 
     while (i < size && fgets(line, 1024, stream))

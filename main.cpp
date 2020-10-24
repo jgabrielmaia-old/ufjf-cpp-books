@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
     stream = fopen("entrada.txt", "r");
     int test_size = get_test_size(stream);
     trace_i(INFO, "Quantidade de tamanhos de amostra: ", test_size);
-    int *tests = read_input(stream);
+    int *tests = read_input(stream, test_size);
     delete stream;
 
     string result = benchmark(books, tests, test_size);
