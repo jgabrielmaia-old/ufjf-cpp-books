@@ -81,7 +81,7 @@ double timer(void (*sorter)(Book **to_sort, int size, int copy_count, int compar
     long microseconds = end.tv_usec - begin.tv_usec;
     double elapsed = seconds + microseconds * 1e-6;
 
-    trace_d(INFO, "Time measured in seconds: ", elapsed);
+    trace_d(INFO, "Tempo mensurado em segundos: ", elapsed);
 
     return elapsed;
 }
