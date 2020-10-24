@@ -56,10 +56,10 @@ string run(string name, void (*sorter)(Book **to_sort, int size, int copy_count,
     int copy_count = 0;
     int compare_count = 0;
     double elapsed = timer(sorter, to_sort, size, copy_count, compare_count);
-    trace_i(INFO, "Copies: ", copy_count);
+    trace_i(INFO, "Cópias: ", copy_count);
     trace_i(INFO, "Comparações : ", compare_count);
 
-    result += "Copies: " + to_string(copy_count) + "\r\n";
+    result += "Cópias: " + to_string(copy_count) + "\r\n";
     result += "Comparações: " + to_string(copy_count) + "\r\n";
     result += "Tempo: " + to_string(elapsed) + "\r\n";
     result += "\r\n";
