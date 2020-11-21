@@ -17,6 +17,7 @@ const string empty_str = string();
 void print_book(Book *b);
 void print_book_q(Book *b);
 void print_book_t(Book *b);
+void print_book_a(Book *b);
 void print_message(TRACE_TYPE type, string message);
 void trace(TRACE_TYPE type, string message);
 void trace_i(TRACE_TYPE type, string message, int param);

@@ -25,6 +25,11 @@ void print_book_t(Book *b)
     cout << b->title << endl;
 }
 
+void print_book_a(Book *b)
+{
+    cout << b->authors << endl;
+}
+
 void print_message(TRACE_TYPE type, string message)
 {
     switch (type)
