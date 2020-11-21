@@ -15,6 +15,11 @@ void print_book(Book *b)
     cout << endl;
 }
 
+void print_author(Author *a){
+    cout << "Id: " << a->id << endl;
+    cout << endl;
+}
+
 void print_book_q(Book *b)
 {
     cout << b->id << endl;

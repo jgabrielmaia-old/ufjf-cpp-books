@@ -3,7 +3,7 @@
 
 struct Author
 {
-    char id[15];
+    char id[50];
     char authors[50];
 };
 

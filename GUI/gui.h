@@ -2,6 +2,7 @@
 #define GUI
 
 #include "../Model/book.h"
+#include "../Model/author.h"
 #include <stdio.h>
 #include <iostream>
 using namespace std;
@@ -15,6 +16,7 @@ enum TRACE_TYPE
 const string empty_str = string();
 
 void print_book(Book *b);
+void print_author(Author *a);
 void print_book_q(Book *b);
 void print_book_t(Book *b);
 void print_book_a(Book *b);
