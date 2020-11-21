@@ -1,8 +1,11 @@
-main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o
-	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o -o main
+main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o mapping.o
+	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o mapping.o -o main
+
+mapping.o: Model/mapping.cpp
+	g++ -c Model/mapping.cpp
 
 csv_reader.o: DAL/csv_reader.cpp
-	g++ -c DAL/csv_reader.cpp
+	g++ -c DAL/csv_reader.cppv
 
 gui.o: GUI/gui.cpp
 	g++ -c GUI/gui.cpp
