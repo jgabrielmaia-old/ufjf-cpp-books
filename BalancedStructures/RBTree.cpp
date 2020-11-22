@@ -79,7 +79,7 @@ void RBTree::verify_property_2(node root)
  */
 color RBTree::node_color(node n)
 {
-    return n == NULL ? BLACK : n->color;
+    return n == NULL ? color::BLACK : n->color;
 }
 /*
  * Verifying Property 4
@@ -247,7 +247,7 @@ void RBTree::replace_node(rbtree t, node oldn, node newn)
  */
 void RBTree::rbtree_insert(rbtree t, void* key, void* value, compare_func compare)
 {
-    node inserted_node = new_node(key, value, RED, NULL, NULL);
+    node inserted_node = new_node(key, value, color::RED, NULL, NULL);
     if (t->root == NULL)
     {
         t->root = inserted_node;
@@ -301,7 +301,7 @@ void RBTree::rbtree_insert(rbtree t, void* key, void* value, compare_func compar
 void RBTree::insert_case1(rbtree t, node n)
 {
     if (n->parent == NULL)
-        n->color = BLACK;
+        n->color = color::BLACK;
     else
         insert_case2(t, n);
 }
@@ -324,9 +324,9 @@ void RBTree::insert_case3(rbtree t, node n)
 {
     if (node_color(uncle(n)) == RED)
     {
-        n->parent->color = BLACK;
-        uncle(n)->color = BLACK;
-        grandparent(n)->color = RED;
+        n->parent->color = color::BLACK;
+        uncle(n)->color = color::BLACK;
+        grandparent(n)->color = color::RED;
         insert_case1(t, grandparent(n));
     }
     else
@@ -358,8 +358,8 @@ void RBTree::insert_case4(rbtree t, node n)
  */
 void RBTree::insert_case5(rbtree t, node n)
 {
-    n->parent->color = BLACK;
-    grandparent(n)->color = RED;
+    n->parent->color = color::BLACK;
+    grandparent(n)->color = color::RED;
     if (n == n->parent->left && n->parent == grandparent(n)->left)
     {
         rotate_right(t, grandparent(n));
@@ -430,8 +430,8 @@ void RBTree::delete_case2(rbtree t, node n)
 {
     if (node_color(sibling(n)) == RED)
     {
-        n->parent->color = RED;
-        sibling(n)->color = BLACK;
+        n->parent->color = color::RED;
+        sibling(n)->color = color::BLACK;
         if (n == n->parent->left)
             rotate_left(t, n->parent);
         else
@@ -448,7 +448,7 @@ void RBTree::delete_case3(rbtree t, node n)
     if (node_color(n->parent) == BLACK && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == BLACK && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
+        sibling(n)->color = color::RED;
         delete_case1(t, n->parent);
     }
     else
@@ -463,8 +463,8 @@ void RBTree::delete_case4(rbtree t, node n)
     if (node_color(n->parent) == RED && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == BLACK && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
-        n->parent->color = BLACK;
+        sibling(n)->color = color::RED;
+        n->parent->color = color::BLACK;
     }
     else
         delete_case5(t, n);
@@ -478,15 +478,15 @@ void RBTree::delete_case5(rbtree t, node n)
     if (n == n->parent->left && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == RED && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
-        sibling(n)->left->color = BLACK;
+        sibling(n)->color = color::RED;
+        sibling(n)->left->color = color::BLACK;
         rotate_right(t, sibling(n));
     }
     else if (n == n->parent->right && node_color(sibling(n)) == BLACK &&
              node_color(sibling(n)->right) == RED && node_color(sibling(n)->left) == BLACK)
     {
-        sibling(n)->color = RED;
-        sibling(n)->right->color = BLACK;
+        sibling(n)->color = color::RED;
+        sibling(n)->right->color = color::BLACK;
         rotate_left(t, sibling(n));
     }
     delete_case6(t, n);
@@ -498,17 +498,17 @@ void RBTree::delete_case5(rbtree t, node n)
 void RBTree::delete_case6(rbtree t, node n)
 {
     sibling(n)->color = node_color(n->parent);
-    n->parent->color = BLACK;
+    n->parent->color = color::BLACK;
     if (n == n->parent->left)
     {
         assert (node_color(sibling(n)->right) == RED);
-        sibling(n)->right->color = BLACK;
+        sibling(n)->right->color = color::BLACK;
         rotate_left(t, n->parent);
     }
     else
     {
         assert (node_color(sibling(n)->left) == RED);
-        sibling(n)->left->color = BLACK;
+        sibling(n)->left->color = color::BLACK;
         rotate_right(t, n->parent);
     }
 }
