@@ -1,5 +1,3 @@
-#include "Color.h"
-
 enum color { RED, BLACK };
 
 typedef struct rbtree_node
