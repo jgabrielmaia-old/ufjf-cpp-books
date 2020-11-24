@@ -518,8 +518,8 @@ void RBTree::delete_case6(rbtree t, node n)
  */
 int compare_int(void* leftp, void* rightp)
 {
-    int left = (int)leftp;
-    int right = (int)rightp;
+    int left = intptr_t(leftp);
+    int right = intptr_t(rightp);
     if (left < right)
         return -1;
     else if (left > right)
@@ -548,9 +548,9 @@ void print_tree_helper(node n, int indent)
     for(i = 0; i < indent; i++)
         fputs(" ", stdout);
     if (n->color == BLACK)
-        cout<<(int)n->key<<endl;
+        cout<<intptr_t(n->key)<<endl;
     else
-        cout<<"<"<<(int)n->key<<">"<<endl;
+        cout<<"<"<<intptr_t(n->key)<<">"<<endl;
     if (n->left != NULL)
     {
         print_tree_helper(n->left, indent + INDENT_STEP);
