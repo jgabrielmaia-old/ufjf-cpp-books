@@ -11,7 +11,7 @@
 
 int main(int argc, char const *argv[])
 {
-    int library_size = 1'000;
+    int library_size = 16;
     Book **books = (Book **)malloc(library_size * sizeof(Book *));
     FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 

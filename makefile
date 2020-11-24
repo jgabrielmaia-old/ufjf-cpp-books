@@ -5,7 +5,7 @@ mapping.o: Model/mapping.cpp
 	g++ -c Model/mapping.cpp
 
 csv_reader.o: DAL/csv_reader.cpp
-	g++ -c DAL/csv_reader.cppv
+	g++ -c DAL/csv_reader.cpp
 
 gui.o: GUI/gui.cpp
 	g++ -c GUI/gui.cpp
