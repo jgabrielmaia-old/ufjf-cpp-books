@@ -1,14 +1,12 @@
 template <typename T>
 class HashNode
 {
-private:
+public:
     int hit_count;
     HashNode *next;
-
-public:
     int key;
     T value;
-    HashNode(int key, T value);
+    HashNode(int key, T value, HashNode<T> *next);
 };
 
 template <typename T>
