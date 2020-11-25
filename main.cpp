@@ -18,6 +18,14 @@ int main(int argc, char const *argv[])
 
     test = new HashNode<Book *>(1, book, nullptr);
 
+    HashNode<string> *test2 = (HashNode<string> *)malloc(sizeof(HashNode<string>));
+
+    string toTest = "J. Gabriel Maia";
+
+    test2 = new HashNode<string>(1, toTest, nullptr);
+
+    cout << test2->value << endl;
+
     HashTable<Book *> *table = (HashTable<Book *> *)malloc(sizeof(HashTable<Book *>));
 
     table = new HashTable<Book *>(10);

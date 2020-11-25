@@ -1,8 +1,9 @@
 #include "hash.h"
 #include "../Model/book.h"
-#include "../Model/author.h"
 #include <cstddef>
 #include <stdlib.h>
+#include <iostream>
+using namespace std;
 
 template <>
 HashNode<Book *>::HashNode(int key, Book *value, HashNode<Book *> *next)
@@ -14,7 +15,7 @@ HashNode<Book *>::HashNode(int key, Book *value, HashNode<Book *> *next)
 }
 
 template <>
-HashNode<Author *>::HashNode(int key, Author *value, HashNode<Author *> *next)
+HashNode<string>::HashNode(int key, string value, HashNode<string> *next)
 {
     this->key = key;
     this->value = value;
@@ -53,14 +54,14 @@ HashTable<Book *>::~HashTable()
 }
 
 template <>
-HashTable<Author *>::~HashTable()
+HashTable<string *>::~HashTable()
 {
     for (size_t i = 0; i < this->capacity; i++)
     {
-        HashNode<Author *> *current = nodes[i];
+        HashNode<string *> *current = nodes[i];
         while (current != NULL)
         {
-            HashNode<Author *> *to_destroy = current;
+            HashNode<string *> *to_destroy = current;
             current = current->next;
             delete to_destroy;
         }
@@ -71,10 +72,10 @@ HashTable<Author *>::~HashTable()
 }
 
 template <>
-HashTable<Author *>::HashTable(int capacity)
+HashTable<string *>::HashTable(int capacity)
 {
     this->capacity = capacity;
-    nodes = (HashNode<Author *> **)malloc(this->capacity * sizeof(HashNode<Author *> *));
+    nodes = (HashNode<string *> **)malloc(this->capacity * sizeof(HashNode<string *> *));
 
     for (size_t i = 0; i < capacity; i++)
     {
