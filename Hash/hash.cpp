@@ -1,5 +1,4 @@
 #include "hash.h"
-#include "../Model/book.h"
 #include <cstddef>
 #include <stdlib.h>
 #include <iostream>
@@ -50,7 +49,6 @@ HashTable<Book *>::~HashTable()
     }
 
     delete nodes;
-
 }
 
 template <>
@@ -68,7 +66,6 @@ HashTable<string *>::~HashTable()
     }
 
     delete nodes;
-
 }
 
 template <>
@@ -81,4 +78,26 @@ HashTable<string *>::HashTable(int capacity)
     {
         nodes[i] = nullptr;
     }
+}
+
+template <>
+void HashTable<Book *>::insert(int key, Book *value)
+{
+}
+
+template <>
+Book * HashTable<Book *>::fetch(int key)
+{
+    return nullptr;
+}
+
+template <>
+void HashTable<string>::insert(int key, string value)
+{
+}
+
+template <>
+string HashTable<string>::fetch(int key)
+{
+    return "";
 }

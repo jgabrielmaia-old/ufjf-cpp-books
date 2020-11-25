@@ -1,3 +1,13 @@
+#include "../Model/book.h"
+
+int hashString(string s, int capacity) {
+    return 0;
+}
+
+int HashBook(Book *b, int capacity) {
+    return 0;
+}
+
 template <typename T>
 class HashNode
 {
