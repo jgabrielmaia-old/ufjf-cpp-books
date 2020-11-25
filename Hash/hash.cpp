@@ -23,7 +23,8 @@ HashNode<Author *>::HashNode(int key, Author *value, HashNode<Author *> *next)
 }
 
 template <>
-HashTable<Book *>::HashTable(int capacity){
+HashTable<Book *>::HashTable(int capacity)
+{
     this->capacity = capacity;
     nodes = (HashNode<Book *> **)malloc(this->capacity * sizeof(HashNode<Book *> *));
 
@@ -31,11 +32,47 @@ HashTable<Book *>::HashTable(int capacity){
     {
         nodes[i] = nullptr;
     }
+}
+
+template <>
+HashTable<Book *>::~HashTable()
+{
+    for (size_t i = 0; i < this->capacity; i++)
+    {
+        HashNode<Book *> *current = nodes[i];
+        while (current != NULL)
+        {
+            HashNode<Book *> *to_destroy = current;
+            current = current->next;
+            delete to_destroy;
+        }
+    }
+
+    delete nodes;
 
 }
 
 template <>
-HashTable<Author *>::HashTable(int capacity){
+HashTable<Author *>::~HashTable()
+{
+    for (size_t i = 0; i < this->capacity; i++)
+    {
+        HashNode<Author *> *current = nodes[i];
+        while (current != NULL)
+        {
+            HashNode<Author *> *to_destroy = current;
+            current = current->next;
+            delete to_destroy;
+        }
+    }
+
+    delete nodes;
+
+}
+
+template <>
+HashTable<Author *>::HashTable(int capacity)
+{
     this->capacity = capacity;
     nodes = (HashNode<Author *> **)malloc(this->capacity * sizeof(HashNode<Author *> *));
 
@@ -43,5 +80,4 @@ HashTable<Author *>::HashTable(int capacity){
     {
         nodes[i] = nullptr;
     }
-
 }
