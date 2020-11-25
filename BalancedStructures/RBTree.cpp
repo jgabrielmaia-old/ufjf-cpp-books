@@ -1,6 +1,7 @@
 #include "RBTree_Node.h"
 #include "RBTree_T.h"
 #include "RBTree.h"
+#include "sorters.h"
 
 #include <iostream>
 #include <cstdio>
@@ -13,6 +14,28 @@
 #define INDENT_STEP  4
 
 using namespace std;
+
+// void rbTree(Book **to_sort, int size, int copy_count, int compare_count) {
+//     int i;
+//     RBTree rbt;
+//     rbtree t = rbt.rbtree_create();
+//     for (i = 0; i < 12; i++)
+//     {
+//         int x = rand() % 10;
+//         int y = rand() % 10;
+//         print_tree(t);
+//         cout<<"Inserting "<<x<<" -> "<<y<<endl<<endl;
+//         rbt.rbtree_insert(t, (void*)x, (void*)y, compare_int);
+//         assert(rbt.rbtree_lookup(t, (void*)x, compare_int) == (void*)y);
+//     }
+//     for (i = 0; i < 15; i++)
+//     {
+//         int x = rand() % 10;
+//         print_tree(t);
+//         cout<<"Deleting key "<<x<<endl<<endl;
+//         rbt.rbtree_delete(t, (void*)x, compare_int);
+//     }
+// }
 
 node RBTree::grandparent(node n)
 {
