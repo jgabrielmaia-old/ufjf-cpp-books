@@ -1,3 +1,5 @@
+#ifndef RBTREE
+#define RBTREE
 
 #include "RBTree_Node.h"
 #include "RBTree_t.h"
@@ -6,6 +8,7 @@ class RBTree
 {
     public:
         typedef int (*compare_func)(void* left, void* right);
+        int compare_int(void* leftp, void* rightp);
         rbtree rbtree_create();
         void* rbtree_lookup(rbtree t, void* , compare_func compare);
         void rbtree_insert(rbtree t, void* , void* , compare_func compare);
@@ -37,4 +40,7 @@ class RBTree
         void delete_case4(rbtree t, node n);
         void delete_case5(rbtree t, node n);
         void delete_case6(rbtree t, node n);
+        void print_tree(rbtree t);
 };
+
+#endif

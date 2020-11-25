@@ -1,7 +1,7 @@
 #include "RBTree_Node.h"
 #include "RBTree_T.h"
 #include "RBTree.h"
-#include "sorters.h"
+#include "trees.h"
 
 #include <iostream>
 #include <cstdio>
@@ -15,27 +15,21 @@
 
 using namespace std;
 
-// void rbTree(Book **to_sort, int size, int copy_count, int compare_count) {
-//     int i;
-//     RBTree rbt;
-//     rbtree t = rbt.rbtree_create();
-//     for (i = 0; i < 12; i++)
-//     {
-//         int x = rand() % 10;
-//         int y = rand() % 10;
-//         print_tree(t);
-//         cout<<"Inserting "<<x<<" -> "<<y<<endl<<endl;
-//         rbt.rbtree_insert(t, (void*)x, (void*)y, compare_int);
-//         assert(rbt.rbtree_lookup(t, (void*)x, compare_int) == (void*)y);
-//     }
-//     for (i = 0; i < 15; i++)
-//     {
-//         int x = rand() % 10;
-//         print_tree(t);
-//         cout<<"Deleting key "<<x<<endl<<endl;
-//         rbt.rbtree_delete(t, (void*)x, compare_int);
-//     }
-// }
+void insertRBTree(Book **to_sort, int size, int copy_count, int compare_count) {
+    
+    int i;
+    RBTree rbt;
+    rbtree t = rbt.rbtree_create();
+    for (i = 0; i < 12; i++)
+    {
+        int x = rand() % 10;
+        int y = rand() % 10;
+        rbt.print_tree(t);
+        cout<<"Inserting "<<x<<" -> "<<y<<endl<<endl;
+        rbt.rbtree_insert(t, (void*)x, (void*)y, rbt.compare_int);
+        assert(rbt.rbtree_lookup(t, (void*)x, compare_int) == (void*)y);
+    }
+}
 
 node RBTree::grandparent(node n)
 {
@@ -323,7 +317,8 @@ void RBTree::rbtree_insert(rbtree t, void* key, void* value, compare_func compar
  */
 void RBTree::insert_case1(rbtree t, node n)
 {
-    if (n->parent == NULL)
+    // caso a raiz seja nula, a raiz se torna preta
+    if (n->parent == NULL) 
         n->color = color::BLACK;
     else
         insert_case2(t, n);
@@ -539,7 +534,7 @@ void RBTree::delete_case6(rbtree t, node n)
 /*
  * Compare two nodes
  */
-int compare_int(void* leftp, void* rightp)
+int RBTree::compare_int(void* leftp, void* rightp)
 {
     int left = intptr_t(leftp);
     int right = intptr_t(rightp);
@@ -580,7 +575,7 @@ void print_tree_helper(node n, int indent)
     }
 }
  
-void print_tree(rbtree t)
+void RBTree::print_tree(rbtree t)
 {
     print_tree_helper(t->root, 0);
     puts("");

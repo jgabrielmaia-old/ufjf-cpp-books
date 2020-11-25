@@ -6,7 +6,7 @@
 #include "DAL/input_reader.h"
 #include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
-
+#include "Benchmark/benchmarkTrees.h"
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
@@ -21,21 +21,22 @@ int main(int argc, char const *argv[])
 
     Author **authors = books_to_authors(books, library_size);
 
-    for (size_t i = 0; i < library_size; i++)
-    {
-        print_author(authors[i]);
-    }
+    // for (size_t i = 0; i < library_size; i++)
+    // {
+    //     print_author(authors[i]);
+    // }
 
     delete stream;
 
-    // stream = fopen("entrada.txt", "r");
-    // int test_size = get_test_size(stream);
-    // trace_i(INFO, "Quantidade de tamanhos de amostra: ", test_size);
-    // int *tests = read_input(stream, test_size);
-    // delete stream;
+    stream = fopen("entrada.txt", "r");
+    int test_size = get_test_size(stream);
+    trace_i(INFO, "Quantidade de tamanhos de amostra: ", test_size);
+    int *tests = read_input(stream, test_size);
+    delete stream;
 
-    // string result = benchmark(books, tests, test_size);
+    //string result = benchmark(books, tests, test_size);
+    string result = benchmarkTrees(books, tests, test_size);
 
-    // write_to_file("saida.txt", result);
+    write_to_file("saida.txt", result);
     return 0;
 }
