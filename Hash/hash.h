@@ -13,10 +13,10 @@ template <typename T>
 class HashTable
 {
 private:
-    HashNode<T> **nodeChainedList;
     int capacity;
 
 public:
+    HashNode<T> **nodes;
     HashTable(int capacity);
     ~HashTable();
 

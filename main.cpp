@@ -18,10 +18,14 @@ int main(int argc, char const *argv[])
 
     test = new HashNode<Book *>(1, book, nullptr);
 
-    cout << test->key << endl;
-    cout << test->value << endl;
-    cout << test->next << endl;
-    cout << test->hit_count << endl;
+    HashTable<Book *> *table = (HashTable<Book *> *)malloc(sizeof(HashTable<Book *>));
+
+    table = new HashTable<Book *>(10);
+
+    for (size_t i = 0; i < 10; i++)
+    {
+        cout << table->nodes[i] << endl;
+    }
 
     return 0;
 }
