@@ -1,3 +1,6 @@
+#include "RBTree_Node.h"
+#include "RBTree_T.h"
+#include "RBTree.h"
 #include "trees.h"
 
 #include <iostream>
@@ -9,66 +12,25 @@
 #include <cstdlib>
 #include <cassert>
 #define INDENT_STEP  4
+
 using namespace std;
-enum color { RED, BLACK };
-/*
- * Node RBTree Declaration
- */
-typedef struct rbtree_node
-{
-    enum color color;
-    void *key;
-    void *value;
-    rbtree_node *left, *right, *parent;
-}*node;
- 
-typedef struct rbtree_t
-{
-    node root;
-}*rbtree;
- 
-/*
- * Class RBTree Declaration
- */
-class RBTree
-{
-    public:
-        typedef int (*compare_func)(void* left, void* right);
-        rbtree rbtree_create();
-        void* rbtree_lookup(rbtree t, void* , compare_func compare);
-        void rbtree_insert(rbtree t, void* , void* , compare_func compare);
-        void rbtree_delete(rbtree t, void* , compare_func compare);
-        node grandparent(node n);
-        node sibling(node n);
-        node uncle(node n);
-        void verify_properties(rbtree t);
-        void verify_property_1(node root);
-        void verify_property_2(node root);
-        color node_color(node n);
-        void verify_property_4(node root);
-        void verify_property_5(node root);
-        void verify_property_5_helper(node n, int , int*);
-        node new_node(void* key, void* , color , node , node);
-        node lookup_node(rbtree t, void* , compare_func compare);
-        void rotate_left(rbtree t, node n);
-        void rotate_right(rbtree t, node n);
-        void replace_node(rbtree t, node oldn, node newn);
-        void insert_case1(rbtree t, node n);
-        void insert_case2(rbtree t, node n);
-        void insert_case3(rbtree t, node n);
-        void insert_case4(rbtree t, node n);
-        void insert_case5(rbtree t, node n);
-        node maximum_node(node root);
-        void delete_case1(rbtree t, node n);
-        void delete_case2(rbtree t, node n);
-        void delete_case3(rbtree t, node n);
-        void delete_case4(rbtree t, node n);
-        void delete_case5(rbtree t, node n);
-        void delete_case6(rbtree t, node n);
-};
-/*
- * Return Grandparent of Node 
- */
+
+void insertRBTree(Book **to_sort, int size, int copy_count, int compare_count) {
+    
+    // int i;
+    // RBTree rbt;
+    // rbtree t = rbt.rbtree_create();
+    // for (i = 0; i < 12; i++)
+    // {
+    //     int x = rand() % 10;
+    //     int y = rand() % 10;
+    //     rbt.print_tree(t);
+    //     cout<<"Inserting "<<x<<" -> "<<y<<endl<<endl;
+    //     rbt.rbtree_insert(t, (void*)x, (void*)y, rbt.compare_int);
+    //     assert(rbt.rbtree_lookup(t, (void*)x, compare_int) == (void*)y);
+    // }
+}
+
 node RBTree::grandparent(node n)
 {
     assert (n != NULL);
@@ -134,7 +96,7 @@ void RBTree::verify_property_2(node root)
  */
 color RBTree::node_color(node n)
 {
-    return n == NULL ? BLACK : n->color;
+    return n == NULL ? color::BLACK : n->color;
 }
 /*
  * Verifying Property 4
@@ -302,7 +264,7 @@ void RBTree::replace_node(rbtree t, node oldn, node newn)
  */
 void RBTree::rbtree_insert(rbtree t, void* key, void* value, compare_func compare)
 {
-    node inserted_node = new_node(key, value, RED, NULL, NULL);
+    node inserted_node = new_node(key, value, color::RED, NULL, NULL);
     if (t->root == NULL)
     {
         t->root = inserted_node;
@@ -355,8 +317,9 @@ void RBTree::rbtree_insert(rbtree t, void* key, void* value, compare_func compar
  */
 void RBTree::insert_case1(rbtree t, node n)
 {
-    if (n->parent == NULL)
-        n->color = BLACK;
+    // caso a raiz seja nula, a raiz se torna preta
+    if (n->parent == NULL) 
+        n->color = color::BLACK;
     else
         insert_case2(t, n);
 }
@@ -379,9 +342,9 @@ void RBTree::insert_case3(rbtree t, node n)
 {
     if (node_color(uncle(n)) == RED)
     {
-        n->parent->color = BLACK;
-        uncle(n)->color = BLACK;
-        grandparent(n)->color = RED;
+        n->parent->color = color::BLACK;
+        uncle(n)->color = color::BLACK;
+        grandparent(n)->color = color::RED;
         insert_case1(t, grandparent(n));
     }
     else
@@ -413,8 +376,8 @@ void RBTree::insert_case4(rbtree t, node n)
  */
 void RBTree::insert_case5(rbtree t, node n)
 {
-    n->parent->color = BLACK;
-    grandparent(n)->color = RED;
+    n->parent->color = color::BLACK;
+    grandparent(n)->color = color::RED;
     if (n == n->parent->left && n->parent == grandparent(n)->left)
     {
         rotate_right(t, grandparent(n));
@@ -485,8 +448,8 @@ void RBTree::delete_case2(rbtree t, node n)
 {
     if (node_color(sibling(n)) == RED)
     {
-        n->parent->color = RED;
-        sibling(n)->color = BLACK;
+        n->parent->color = color::RED;
+        sibling(n)->color = color::BLACK;
         if (n == n->parent->left)
             rotate_left(t, n->parent);
         else
@@ -503,7 +466,7 @@ void RBTree::delete_case3(rbtree t, node n)
     if (node_color(n->parent) == BLACK && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == BLACK && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
+        sibling(n)->color = color::RED;
         delete_case1(t, n->parent);
     }
     else
@@ -518,8 +481,8 @@ void RBTree::delete_case4(rbtree t, node n)
     if (node_color(n->parent) == RED && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == BLACK && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
-        n->parent->color = BLACK;
+        sibling(n)->color = color::RED;
+        n->parent->color = color::BLACK;
     }
     else
         delete_case5(t, n);
@@ -533,15 +496,15 @@ void RBTree::delete_case5(rbtree t, node n)
     if (n == n->parent->left && node_color(sibling(n)) == BLACK &&
         node_color(sibling(n)->left) == RED && node_color(sibling(n)->right) == BLACK)
     {
-        sibling(n)->color = RED;
-        sibling(n)->left->color = BLACK;
+        sibling(n)->color = color::RED;
+        sibling(n)->left->color = color::BLACK;
         rotate_right(t, sibling(n));
     }
     else if (n == n->parent->right && node_color(sibling(n)) == BLACK &&
              node_color(sibling(n)->right) == RED && node_color(sibling(n)->left) == BLACK)
     {
-        sibling(n)->color = RED;
-        sibling(n)->right->color = BLACK;
+        sibling(n)->color = color::RED;
+        sibling(n)->right->color = color::BLACK;
         rotate_left(t, sibling(n));
     }
     delete_case6(t, n);
@@ -553,17 +516,17 @@ void RBTree::delete_case5(rbtree t, node n)
 void RBTree::delete_case6(rbtree t, node n)
 {
     sibling(n)->color = node_color(n->parent);
-    n->parent->color = BLACK;
+    n->parent->color = color::BLACK;
     if (n == n->parent->left)
     {
         assert (node_color(sibling(n)->right) == RED);
-        sibling(n)->right->color = BLACK;
+        sibling(n)->right->color = color::BLACK;
         rotate_left(t, n->parent);
     }
     else
     {
         assert (node_color(sibling(n)->left) == RED);
-        sibling(n)->left->color = BLACK;
+        sibling(n)->left->color = color::BLACK;
         rotate_right(t, n->parent);
     }
 }
@@ -571,10 +534,10 @@ void RBTree::delete_case6(rbtree t, node n)
 /*
  * Compare two nodes
  */
-int compare_int(void* leftp, void* rightp)
+int RBTree::compare_int(void* leftp, void* rightp)
 {
-    int left = (int)leftp;
-    int right = (int)rightp;
+    int left = intptr_t(leftp);
+    int right = intptr_t(rightp);
     if (left < right)
         return -1;
     else if (left > right)
@@ -603,32 +566,17 @@ void print_tree_helper(node n, int indent)
     for(i = 0; i < indent; i++)
         fputs(" ", stdout);
     if (n->color == BLACK)
-        cout<<(int)n->key<<endl;
+        cout<<intptr_t(n->key)<<endl;
     else
-        cout<<"<"<<(int)n->key<<">"<<endl;
+        cout<<"<"<<intptr_t(n->key)<<">"<<endl;
     if (n->left != NULL)
     {
         print_tree_helper(n->left, indent + INDENT_STEP);
     }
 }
  
-void print_tree(rbtree t)
+void RBTree::print_tree(rbtree t)
 {
     print_tree_helper(t->root, 0);
     puts("");
-}
- 
-void insertRBTree(Book **to_sort, int size, int copy_count, int compare_count) {
-    
-    RBTree rbt;
-    rbtree t = rbt.rbtree_create();
-    for (int i = 0; i < size; i++)
-    {
-        int key = (int)to_sort[i]->id;
-        Book *value = to_sort[i];
-        print_tree(t);
-        cout<<"Inserting "<<key<<" -> "<<value<<endl<<endl;
-        rbt.rbtree_insert(t, (void*)key, (void*)value, compare_int);
-        assert(rbt.rbtree_lookup(t, (void*)key, compare_int) == (void*)value);
-    }
 }

@@ -29,7 +29,7 @@ string test(Book **books, int batch_size)
         trace_i(INFO, "Execução ", i + 1);
         result += "- Execução " + to_string(i + 1) + "\r\n";
         result += run("Insertion in the Red Black Tree", insertRBTree, sample(books, batch_size), batch_size);
-        result += run("Search in the Red Black Tree", searchRBTree, sample(books, batch_size), batch_size);
+        // result += run("Search in the Red Black Tree", searchRBTree, sample(books, batch_size), batch_size);
     }
 
     return result;
