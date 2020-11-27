@@ -12,28 +12,31 @@
 
 int main(int argc, char const *argv[])
 {
-    Book *book = (Book *)malloc(sizeof(Book));
+    int library_size = 16;
+    Book **books = (Book **)malloc(library_size * sizeof(Book *));
+    FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 
-    HashNode<Book *> *test = (HashNode<Book *> *)malloc(sizeof(HashNode<Book *>));
+    trace(INFO, "Lendo " + to_string(library_size) + " livros de arquivo...");
+    books = read_book_from_csv(stream, library_size);
+    trace_i(INFO, "Livros alocados em memoria: ", library_size);
 
-    test = new HashNode<Book *>("bookname", book, nullptr);
+    Author **authors = books_to_authors(books, library_size);
 
-    HashNode<string> *test2 = (HashNode<string> *)malloc(sizeof(HashNode<string>));
-
-    string to_test = "J. Gabriel Maia";
-
-    test2 = new HashNode<string>(to_test, to_test, nullptr);
-
-    cout << test2->value << endl;
-
-    HashTable<Book *> *table = (HashTable<Book *> *)malloc(sizeof(HashTable<Book *>));
-
-    table = new HashTable<Book *>(10);
-
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < library_size; i++)
     {
-        cout << table->nodes[i] << endl;
+        print_author(authors[i]);
     }
 
+    delete stream;
+
+    stream = fopen("entrada.txt", "r");
+    int test_size = get_test_size(stream);
+    trace_i(INFO, "Quantidade de tamanhos de amostra: ", test_size);
+    int *tests = read_input(stream, test_size);
+    delete stream;
+
+    string result = benchmark(books, tests, test_size);
+
+    write_to_file("saida.txt", result);
     return 0;
 }
