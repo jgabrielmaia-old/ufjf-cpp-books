@@ -16,13 +16,13 @@ int main(int argc, char const *argv[])
 
     HashNode<Book *> *test = (HashNode<Book *> *)malloc(sizeof(HashNode<Book *>));
 
-    test = new HashNode<Book *>(1, book, nullptr);
+    test = new HashNode<Book *>("bookname", book, nullptr);
 
     HashNode<string> *test2 = (HashNode<string> *)malloc(sizeof(HashNode<string>));
 
-    string toTest = "J. Gabriel Maia";
+    string to_test = "J. Gabriel Maia";
 
-    test2 = new HashNode<string>(1, toTest, nullptr);
+    test2 = new HashNode<string>(to_test, to_test, nullptr);
 
     cout << test2->value << endl;
 

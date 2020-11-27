@@ -5,7 +5,7 @@
 using namespace std;
 
 template <>
-HashNode<Book *>::HashNode(int key, Book *value, HashNode<Book *> *next)
+HashNode<Book *>::HashNode(string key, Book *value, HashNode<Book *> *next)
 {
     this->key = key;
     this->value = value;
@@ -14,7 +14,7 @@ HashNode<Book *>::HashNode(int key, Book *value, HashNode<Book *> *next)
 }
 
 template <>
-HashNode<string>::HashNode(int key, string value, HashNode<string> *next)
+HashNode<string>::HashNode(string key, string value, HashNode<string> *next)
 {
     this->key = key;
     this->value = value;
@@ -81,23 +81,45 @@ HashTable<string *>::HashTable(int capacity)
 }
 
 template <>
-void HashTable<Book *>::insert(int key, Book *value)
+void HashTable<Book *>::insert(Book *value)
 {
+
 }
 
 template <>
-Book * HashTable<Book *>::fetch(int key)
+Book * HashTable<Book *>::fetch(Book *key)
 {
-    return nullptr;
+    return 0;
 }
 
 template <>
-void HashTable<string>::insert(int key, string value)
+void HashTable<string>::insert(string value)
 {
+    string try_fetch;
+    try_fetch = fetch(value);
+
 }
 
 template <>
-string HashTable<string>::fetch(int key)
+string HashTable<string>::fetch(string key)
 {
-    return "";
+    int hash = hashString(key, this->capacity);
+    if((this->nodes[hash] != NULL) && (this->nodes[hash]->key == key)) {
+        return nodes[hash]->value;
+    }
+    else {
+        HashNode<string> *current = this->nodes[hash];
+
+        while(current != NULL)
+        {
+            if(current->key == key){
+                return current->value;
+            }
+
+            current->hit_count++;
+            current = current->next;
+        }
+    }
+
+    return "operation-failed-not-found";
 }
