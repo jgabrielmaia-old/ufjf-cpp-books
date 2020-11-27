@@ -626,9 +626,10 @@ void insertRBTree(Book **to_sort, int size, int copy_count, int compare_count) {
     {
         int key = (int)to_sort[i]->id;
         Book *value = to_sort[i];
-        print_tree(t);
+         print_tree(t);
         cout<<"Inserting "<<key<<" -> "<<value<<endl<<endl;
         rbt.rbtree_insert(t, (void*)key, (void*)value, compare_int);
         assert(rbt.rbtree_lookup(t, (void*)key, compare_int) == (void*)value);
     }
+   
 }

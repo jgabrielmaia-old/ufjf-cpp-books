@@ -1,5 +1,5 @@
-main: main.o csv_reader.o gui.o random_reader.o  benchmarkTrees.o quicksort.o insertionsort.o RBTree.o output_writer.o input_reader.o mapping.o
-	g++ main.o csv_reader.o gui.o random_reader.o benchmarkTrees.o quicksort.o insertionsort.o RBTree.o output_writer.o input_reader.o mapping.o -o main
+main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o mapping.o
+	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o mapping.o -o main
 
 mapping.o: Model/mapping.cpp
 	g++ -c Model/mapping.cpp
@@ -13,11 +13,11 @@ gui.o: GUI/gui.cpp
 random_reader.o: DAL/random_reader.cpp
 	g++ -c DAL/random_reader.cpp
 
-# benchmark.o: Benchmark/benchmark.cpp
-# 	g++ -c Benchmark/benchmark.cpp
+benchmark.o: Benchmark/benchmark.cpp
+	g++ -c Benchmark/benchmark.cpp
 
-benchmark.o: Benchmark/benchmarkTrees.cpp
-	g++ -c Benchmark/benchmarkTrees.cpp
+# benchmark.o: Benchmark/benchmarkTrees.cpp
+# 	g++ -c Benchmark/benchmarkTrees.cpp
 
 quicksort.o: Sorters/quicksort.cpp
 	g++ -c Sorters/quicksort.cpp
