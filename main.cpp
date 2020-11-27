@@ -7,7 +7,7 @@
 #include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
 #include "Hash/hash.h"
-
+#include "Benchmark/benchmarkTrees.h"
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
