@@ -6,12 +6,13 @@
 #include "DAL/input_reader.h"
 #include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
+#include "Hash/hash.h"
 #include "Benchmark/benchmarkTrees.h"
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
-    int library_size = 16;
+    int library_size = 1'000'000;
     Book **books = (Book **)malloc(library_size * sizeof(Book *));
     FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 
@@ -35,7 +36,6 @@ int main(int argc, char const *argv[])
     delete stream;
 
     string result = benchmark(books, tests, test_size);
-    //string result = benchmarkTrees(books, tests, test_size);
 
     write_to_file("saida.txt", result);
     return 0;
