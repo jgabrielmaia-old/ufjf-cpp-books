@@ -1,8 +1,10 @@
 main: main.o csv_reader.o gui.o random_reader.o benchmarkTrees.o quicksort.o insertionsort.o RBTree.o output_writer.o input_reader.o mapping.o
 	g++ main.o csv_reader.o gui.o random_reader.o benchmarkTrees.o quicksort.o insertionsort.o RBTree.o output_writer.o input_reader.o mapping.o -o main
+main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o hash.o
+	g++ main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertionsort.o output_writer.o input_reader.o hash.o -o main
 
-mapping.o: Model/mapping.cpp
-	g++ -c Model/mapping.cpp
+hash.o: Hash/hash.cpp
+	g++ -c Hash/hash.cpp
 
 csv_reader.o: DAL/csv_reader.cpp
 	g++ -c DAL/csv_reader.cpp

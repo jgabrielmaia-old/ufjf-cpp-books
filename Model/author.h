@@ -4,7 +4,7 @@
 struct Author
 {
     char id[50];
-    char authors[50];
+    char name[200];
 };
 
 #endif
