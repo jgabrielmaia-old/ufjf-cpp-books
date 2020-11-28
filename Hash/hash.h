@@ -1,31 +1,23 @@
+#ifndef HASH
+#define HASH
+
 #include "../Model/book.h"
+#include <string>
+using namespace std;
 
 const int PRIME = 49999;
 
-int hashString(string s, int capacity) {
-    long hash = 0;
-    for (unsigned i = 0; i < s.length(); i++) {
-        hash = (PRIME * hash + s[i]) % capacity;
-    }
-    return hash;
-}
-
-int HashBook(Book *b, int capacity) {
-    return 0;
-}
-
-template <typename T>
+template <class T>
 class HashNode
 {
 public:
     int hit_count;
-    HashNode *next;
     string key;
     T value;
-    HashNode(string key, T value, HashNode<T> *next);
+    HashNode();
 };
 
-template <typename T>
+template <class T>
 class HashTable
 {
 private:
@@ -37,5 +29,9 @@ public:
     ~HashTable();
 
     void insert(T value);
-    T fetch(T key);
+    T fetch(string key);
+    int hashString(string s, int capacity);
+    HashTable<T> *entites_to_hash(T **entities, int entity_list_size);
 };
+
+#endif

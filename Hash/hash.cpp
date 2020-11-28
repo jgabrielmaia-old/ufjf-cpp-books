@@ -4,29 +4,28 @@
 #include <iostream>
 using namespace std;
 
-template <>
-HashNode<Book *>::HashNode(string key, Book *value, HashNode<Book *> *next)
+const string EMPTY_STR = "";
+
+template <class T>
+int HashTable<T>::hashString(string s, int capacity) {
+    long hash = 0;
+    for (unsigned i = 0; i < s.length(); i++) {
+        hash = (PRIME * hash + s[i]) % capacity;
+    }
+    return hash;
+}
+
+template <class T>
+HashNode<T>::HashNode()
 {
-    this->key = key;
-    this->value = value;
-    this->next = next;
     this->hit_count = 0;
 }
 
-template <>
-HashNode<string>::HashNode(string key, string value, HashNode<string> *next)
-{
-    this->key = key;
-    this->value = value;
-    this->next = next;
-    this->hit_count = 0;
-}
-
-template <>
-HashTable<Book *>::HashTable(int capacity)
+template <class T>
+HashTable<T>::HashTable(int capacity)
 {
     this->capacity = capacity;
-    nodes = (HashNode<Book *> **)malloc(this->capacity * sizeof(HashNode<Book *> *));
+    nodes = (HashNode<T> **)malloc(this->capacity * sizeof(HashNode<T> *));
 
     for (size_t i = 0; i < capacity; i++)
     {
@@ -34,92 +33,55 @@ HashTable<Book *>::HashTable(int capacity)
     }
 }
 
-template <>
-HashTable<Book *>::~HashTable()
+template <class T>
+HashTable<T>::~HashTable()
 {
     for (size_t i = 0; i < this->capacity; i++)
     {
-        HashNode<Book *> *current = nodes[i];
-        while (current != NULL)
-        {
-            HashNode<Book *> *to_destroy = current;
-            current = current->next;
-            delete to_destroy;
-        }
+        HashNode<T> *current = nodes[i];
+
+        delete current;
     }
 
     delete nodes;
 }
 
-template <>
-HashTable<string *>::~HashTable()
+template <class T>
+void HashTable<T>::insert(T value)
 {
-    for (size_t i = 0; i < this->capacity; i++)
-    {
-        HashNode<string *> *current = nodes[i];
-        while (current != NULL)
-        {
-            HashNode<string *> *to_destroy = current;
-            current = current->next;
-            delete to_destroy;
-        }
+    if(fetch(value) == EMPTY_STR){
+        int hash = this->hashString(value, this->capacity);
+        HashNode<T> *new_author = this->nodes[hash];
+        new_author->hit_count++;
+        new_author->value = value;
+        this->nodes[hash] = new_author;
     }
 
-    delete nodes;
 }
 
-template <>
-HashTable<string *>::HashTable(int capacity)
+template <class T>
+T HashTable<T>::fetch(string key)
 {
-    this->capacity = capacity;
-    nodes = (HashNode<string *> **)malloc(this->capacity * sizeof(HashNode<string *> *));
+    int hash = this->hashString(key, this->capacity);
+    if(this->nodes[hash]->key == key) {
 
-    for (size_t i = 0; i < capacity; i++)
-    {
-        nodes[i] = nullptr;
-    }
-}
+        nodes[hash]->hit_count++;
 
-template <>
-void HashTable<Book *>::insert(Book *value)
-{
-
-}
-
-template <>
-Book * HashTable<Book *>::fetch(Book *key)
-{
-    return 0;
-}
-
-template <>
-void HashTable<string>::insert(string value)
-{
-    string try_fetch;
-    try_fetch = fetch(value);
-
-}
-
-template <>
-string HashTable<string>::fetch(string key)
-{
-    int hash = hashString(key, this->capacity);
-    if((this->nodes[hash] != NULL) && (this->nodes[hash]->key == key)) {
         return nodes[hash]->value;
     }
-    else {
-        HashNode<string> *current = this->nodes[hash];
 
-        while(current != NULL)
-        {
-            if(current->key == key){
-                return current->value;
-            }
+    return NULL;
+}
 
-            current->hit_count++;
-            current = current->next;
-        }
+template <class T>
+HashTable<T> HashTable<T>::*entites_to_hash(T **entities, int entity_list_size)
+{
+    HashTable<T> *hashTable = new HashTable<T>(entity_list_size);
+
+    for (size_t i = 0; i < entity_list_size; i++)
+    {
+        hashTable->insert(entities[i]);
     }
 
-    return "operation-failed-not-found";
+    return hashTable;
 }

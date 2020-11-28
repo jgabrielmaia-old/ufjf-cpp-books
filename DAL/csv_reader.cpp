@@ -21,6 +21,23 @@ Book **read_book_from_csv(FILE *stream, int take)
     return books;
 }
 
+Author **read_authors_from_csv(FILE *stream, int take)
+{
+    Author **authors = (Author **)malloc(take * sizeof(Author *));
+    int m = 0;
+    char line[1024];
+
+    //skip first line
+    fgets(line, 1024, stream);
+
+    while (fgets(line, 1024, stream) && m < take)
+    {
+        authors[m++] = get_author_fields(line);
+    }
+
+    return authors;
+}
+
 Book *get_fields(char *line)
 {
     Book *book = (Book *)malloc(sizeof(Book));
@@ -77,4 +94,38 @@ Book *get_fields(char *line)
     }
 
     return book;
+}
+
+Author *get_author_fields(char *line)
+{
+    Author *author = (Author *)malloc(sizeof(Author));
+    int i, field_count = 0, field_pos = 0;
+
+    for (i = 0; i <= strlen(line); i++)
+    {
+        if (line[i] == '\"')
+        {
+            string field;
+
+            while (line[++i] != '\"')
+            {
+                field += line[i];
+            }
+
+            switch (field_pos)
+            {
+            case 0:
+                strcpy(author->id, field.c_str());
+                break;
+            case 1:
+                strcpy(author->name, field.c_str());
+                break;
+            default:
+                break;
+            }
+            field_pos++;
+        }
+    }
+
+    return author;
 }
