@@ -16,7 +16,7 @@ public:
     Author *value;
     HashNode *next;
     HashNode();
-    HashNode(Author* value);
+    HashNode(Author *value);
 };
 
 class HashTable
@@ -32,8 +32,9 @@ public:
     int hashString(string s, int capacity);
 
     void insert(Author *value);
-    Author *fetch(string key);
+    HashNode *fetch(string key);
     void print_hash_table();
+    void print_hash_table_hits();
 };
 
 #endif

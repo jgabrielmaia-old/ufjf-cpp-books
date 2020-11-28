@@ -50,37 +50,43 @@ HashTable::~HashTable()
     delete nodes;
 }
 
-void HashTable::insert(Author * to_insert)
+void HashTable::insert(Author *to_insert)
 {
     int hash = this->hashString(to_insert->name, this->capacity);
     HashNode *current = this->nodes[hash];
 
     HashNode *new_node = new HashNode(to_insert);
 
-    if(current != nullptr) {
+    if (current != nullptr)
+    {
         new_node->next = current;
     }
 
     this->nodes[hash] = new_node;
 }
 
-Author * HashTable::fetch(string key)
+HashNode *HashTable::fetch(string key)
 {
     int hash = hashString(key, this->capacity);
 
-    if(this->nodes[hash] == nullptr){
+    if (this->nodes[hash] == nullptr)
         return nullptr;
-    }
 
-    if(this->nodes[hash]->key == key)
-        return nodes[hash]->value;
-    else {
+    if (this->nodes[hash]->key == key)
+    {
+        nodes[hash]->hit_count++;
+        return nodes[hash];
+    }
+    else
+    {
         HashNode *current = this->nodes[hash];
 
-        while(current != nullptr)
+        while (current != nullptr)
         {
-            if(current->key == key) {
-                return current->value;
+            if (current->key == key)
+            {
+                current->hit_count++;
+                return current;
             }
 
             current = current->next;
@@ -95,17 +101,45 @@ void HashTable::print_hash_table()
     {
         cout << i << ": ";
 
-        if(this->nodes[i] != nullptr){
+        if (this->nodes[i] != nullptr)
+        {
             HashNode *current = this->nodes[i];
-            while(current != nullptr){
+            while (current != nullptr)
+            {
                 print_author(current->value);
-                if(current->next != nullptr)
+                if (current->next != nullptr)
                     cout << " > ";
                 current = current->next;
             }
             cout << endl;
         }
-        else {
+        else
+        {
+            cout << "empty" << endl;
+        }
+    }
+}
+
+void HashTable::print_hash_table_hits(){
+    for (size_t i = 0; i < this->capacity; i++)
+    {
+        cout << i << ": ";
+
+        if (this->nodes[i] != nullptr)
+        {
+            HashNode *current = this->nodes[i];
+            while (current != nullptr)
+            {
+                cout << current->hit_count;
+
+                if (current->next != nullptr)
+                    cout << " > ";
+                current = current->next;
+            }
+            cout << endl;
+        }
+        else
+        {
             cout << "empty" << endl;
         }
     }
