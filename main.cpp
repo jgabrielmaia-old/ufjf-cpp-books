@@ -21,10 +21,10 @@ int main(int argc, char const *argv[])
 
     Author **authors = books_to_authors(books, library_size);
 
-    for (size_t i = 0; i < library_size; i++)
-    {
-        print_author(authors[i]);
-    }
+    // for (size_t i = 0; i < library_size; i++)
+    // {
+    //     print_author(authors[i]);
+    // }
 
     delete stream;
 
@@ -34,8 +34,8 @@ int main(int argc, char const *argv[])
     int *tests = read_input(stream, test_size);
     delete stream;
 
-    string result = benchmark(books, tests, test_size);
-    //string result = benchmarkTrees(books, tests, test_size);
+    // string result = benchmark(books, tests, test_size);
+    string result = benchmarkTrees(books, tests, test_size);
 
     write_to_file("saida.txt", result);
     return 0;
