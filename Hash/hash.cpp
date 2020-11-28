@@ -120,7 +120,8 @@ void HashTable::print_hash_table()
     }
 }
 
-void HashTable::print_hash_table_hits(){
+void HashTable::print_hash_table_hits()
+{
     for (size_t i = 0; i < this->capacity; i++)
     {
         cout << i << ": ";
@@ -144,3 +145,8 @@ void HashTable::print_hash_table_hits(){
         }
     }
 }
+
+void HashTable::search(HashTable table, Book **books, int library_size)
+{
+
+};

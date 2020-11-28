@@ -6,20 +6,20 @@
 #include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
 #include "Hash/hash.h"
-#include "Model/mapping.h"
+#include "DAL/mapping.h"
 #include "Benchmark/benchmarkTrees.h"
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
-    // int library_size = 1'000'000;
-    // Book **books = (Book **)malloc(library_size * sizeof(Book *));
-    // FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
+    int library_size = 1'000;
+    Book **books = (Book **)malloc(library_size * sizeof(Book *));
+    FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 
-    // trace(INFO, "Lendo " + to_string(library_size) + " livros de arquivo...");
-    // books = read_book_from_csv(stream, library_size);
-    // trace_i(INFO, "Livros alocados em memoria: ", library_size);
-    // fclose(stream);
+    trace(INFO, "Lendo " + to_string(library_size) + " livros de arquivo...");
+    books = read_book_from_csv(stream, library_size);
+    trace_i(INFO, "Livros alocados em memoria: ", library_size);
+    fclose(stream);
 
     int authors_list_size = 50'464;
     Author **authors = (Author **)malloc(authors_list_size * sizeof(Author *));
@@ -35,16 +35,7 @@ int main(int argc, char const *argv[])
 
     entities_to_hash(authors, authors_hash_table, authors_list_size);
 
-    HashNode *search_result = authors_hash_table->fetch("Nigel Anthony");
-    search_result = authors_hash_table->fetch("Nigel Anthony");
-    search_result = authors_hash_table->fetch("Nigel Anthony");
-
-    if (search_result != nullptr)
-    {
-        print_author(search_result->value);
-        cout << endl;
-        cout << search_result->hit_count << endl;
-    }
+    // search(authors_hash_table, books, library_size);
 
     return 0;
 }

@@ -4,9 +4,12 @@
 #include "../Model/book.h"
 #include "../Model/author.h"
 #include <stdio.h>
+#include <string>
+using namespace std;
 
 Book **read_book_from_csv(FILE *stream, int take);
 Book *get_fields(char *line);
+int* parse_author_ids(string authors);
 
 Author **read_authors_from_csv(FILE *stream, int take);
 Author *get_author_fields(char *line);

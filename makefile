@@ -4,8 +4,8 @@ main: main.o csv_reader.o gui.o random_reader.o benchmark.o quicksort.o insertio
 hash.o: Hash/hash.cpp
 	g++ -c Hash/hash.cpp
 
-mapping.o: Model/mapping.cpp
-	g++ -c Model/mapping.cpp
+mapping.o: DAL/mapping.cpp
+	g++ -c DAL/mapping.cpp
 
 csv_reader.o: DAL/csv_reader.cpp
 	g++ -c DAL/csv_reader.cpp

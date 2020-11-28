@@ -4,7 +4,7 @@
 struct Book
 {
     char id[15];
-    char authors[50];
+    int *authors;
     char best_sellers_rank[50];
     char categories[50];
     char edition[50];

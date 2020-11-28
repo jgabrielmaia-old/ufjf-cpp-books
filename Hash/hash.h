@@ -2,6 +2,7 @@
 #define HASH
 
 #include "../Model/author.h"
+#include "../Model/book.h"
 #include "../GUI/gui.h"
 #include <string>
 using namespace std;
@@ -35,6 +36,7 @@ public:
     HashNode *fetch(string key);
     void print_hash_table();
     void print_hash_table_hits();
+    void search(HashTable table, Book **books, int library_size);
 };
 
 #endif
