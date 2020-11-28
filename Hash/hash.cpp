@@ -2,30 +2,35 @@
 #include <cstddef>
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 const string EMPTY_STR = "";
 
-template <class T>
-int HashTable<T>::hashString(string s, int capacity) {
-    long hash = 0;
-    for (unsigned i = 0; i < s.length(); i++) {
-        hash = (PRIME * hash + s[i]) % capacity;
+int HashTable::hashString(string s, int capacity)
+{
+    int hash = 0;
+    for (int i = 0; i < s.length(); i++)
+    {
+        hash = (PRIME * (s[i] * s[i]) + hash) % capacity;
     }
     return hash;
 }
 
-template <class T>
-HashNode<T>::HashNode()
+HashNode::HashNode(Author *value)
 {
+    this->value = (Author *)malloc(sizeof(Author));
+    strcpy(this->value->id, value->id);
+    strcpy(this->value->name, value->name);
+    this->key = value->name;
     this->hit_count = 0;
+    this->next = nullptr;
 }
 
-template <class T>
-HashTable<T>::HashTable(int capacity)
+HashTable::HashTable(int capacity)
 {
     this->capacity = capacity;
-    nodes = (HashNode<T> **)malloc(this->capacity * sizeof(HashNode<T> *));
+    nodes = (HashNode **)malloc(this->capacity * sizeof(HashNode *));
 
     for (size_t i = 0; i < capacity; i++)
     {
@@ -33,12 +38,11 @@ HashTable<T>::HashTable(int capacity)
     }
 }
 
-template <class T>
-HashTable<T>::~HashTable()
+HashTable::~HashTable()
 {
     for (size_t i = 0; i < this->capacity; i++)
     {
-        HashNode<T> *current = nodes[i];
+        HashNode *current = nodes[i];
 
         delete current;
     }
@@ -46,42 +50,63 @@ HashTable<T>::~HashTable()
     delete nodes;
 }
 
-template <class T>
-void HashTable<T>::insert(T value)
+void HashTable::insert(Author * to_insert)
 {
-    if(fetch(value) == EMPTY_STR){
-        int hash = this->hashString(value, this->capacity);
-        HashNode<T> *new_author = this->nodes[hash];
-        new_author->hit_count++;
-        new_author->value = value;
-        this->nodes[hash] = new_author;
+    int hash = this->hashString(to_insert->name, this->capacity);
+    HashNode *current = this->nodes[hash];
+
+    HashNode *new_node = new HashNode(to_insert);
+
+    if(current != nullptr) {
+        new_node->next = current;
     }
 
+    this->nodes[hash] = new_node;
 }
 
-template <class T>
-T HashTable<T>::fetch(string key)
+Author * HashTable::fetch(string key)
 {
-    int hash = this->hashString(key, this->capacity);
-    if(this->nodes[hash]->key == key) {
+    int hash = hashString(key, this->capacity);
 
-        nodes[hash]->hit_count++;
+    if(this->nodes[hash] == nullptr){
+        return nullptr;
+    }
 
+    if(this->nodes[hash]->key == key)
         return nodes[hash]->value;
-    }
+    else {
+        HashNode *current = this->nodes[hash];
 
-    return NULL;
+        while(current != nullptr)
+        {
+            if(current->key == key) {
+                return current->value;
+            }
+
+            current = current->next;
+        }
+    }
+    return nullptr;
 }
 
-template <class T>
-HashTable<T> HashTable<T>::*entites_to_hash(T **entities, int entity_list_size)
+void HashTable::print_hash_table()
 {
-    HashTable<T> *hashTable = new HashTable<T>(entity_list_size);
-
-    for (size_t i = 0; i < entity_list_size; i++)
+    for (size_t i = 0; i < this->capacity; i++)
     {
-        hashTable->insert(entities[i]);
-    }
+        cout << i << ": ";
 
-    return hashTable;
+        if(this->nodes[i] != nullptr){
+            HashNode *current = this->nodes[i];
+            while(current != nullptr){
+                print_author(current->value);
+                if(current->next != nullptr)
+                    cout << " > ";
+                current = current->next;
+            }
+            cout << endl;
+        }
+        else {
+            cout << "empty" << endl;
+        }
+    }
 }

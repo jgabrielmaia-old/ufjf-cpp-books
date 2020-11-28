@@ -1,37 +1,39 @@
 #ifndef HASH
 #define HASH
 
-#include "../Model/book.h"
+#include "../Model/author.h"
+#include "../GUI/gui.h"
 #include <string>
 using namespace std;
 
-const int PRIME = 49999;
+const int PRIME = 7;
 
-template <class T>
 class HashNode
 {
 public:
     int hit_count;
     string key;
-    T value;
+    Author *value;
+    HashNode *next;
     HashNode();
+    HashNode(Author* value);
 };
 
-template <class T>
 class HashTable
 {
 private:
     int capacity;
 
 public:
-    HashNode<T> **nodes;
+    HashNode **nodes;
     HashTable(int capacity);
     ~HashTable();
 
-    void insert(T value);
-    T fetch(string key);
     int hashString(string s, int capacity);
-    HashTable<T> *entites_to_hash(T **entities, int entity_list_size);
+
+    void insert(Author *value);
+    Author *fetch(string key);
+    void print_hash_table();
 };
 
 #endif

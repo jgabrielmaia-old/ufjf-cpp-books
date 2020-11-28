@@ -6,20 +6,12 @@
 #include "DAL/output_writer.h"
 #include "Benchmark/benchmark.h"
 #include "Hash/hash.h"
+#include "Model/mapping.h"
 #include "Benchmark/benchmarkTrees.h"
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
-    // int library_size = 1'000'000;
-    // Book **books = (Book **)malloc(library_size * sizeof(Book *));
-    // FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
-
-    // trace(INFO, "Lendo " + to_string(library_size) + " livros de arquivo...");
-    // books = read_book_from_csv(stream, library_size);
-    // trace_i(INFO, "Livros alocados em memoria: ", library_size);
-    // delete stream;
-
     int authors_list_size = 50'464;
     Author **authors = (Author **) malloc(authors_list_size * sizeof(Author *));
     FILE *author_stream = fopen("CSV/authors.csv", "r");
@@ -28,14 +20,12 @@ int main(int argc, char const *argv[])
     authors = read_authors_from_csv(author_stream, authors_list_size);
     trace_i(INFO, "Autores alocados em memoria: ", authors_list_size);
 
-    delete author_stream;
+    fclose(author_stream);
 
-    for (size_t i = 0; i < authors_list_size; i++)
-    {
-        print_author(authors[i]);
-    }
+    HashTable *authors_hash_table = new HashTable(authors_list_size);
 
-    // HashTable<Author *> *authors_hash_table = authors_to_hash_authors(authors, authors_list_size);
+    entities_to_hash(authors, authors_hash_table, authors_list_size);
+    authors_hash_table->print_hash_table();
 
     return 0;
 }

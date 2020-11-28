@@ -118,7 +118,11 @@ Author *get_author_fields(char *line)
                 strcpy(author->id, field.c_str());
                 break;
             case 1:
-                strcpy(author->name, field.c_str());
+                if(field.length() > 0)
+                    strcpy(author->name, field.c_str());
+                else{
+                    strcpy(author->name, "UNKNOWN");
+                }
                 break;
             default:
                 break;
