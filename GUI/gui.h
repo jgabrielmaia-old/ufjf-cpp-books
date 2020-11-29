@@ -3,6 +3,7 @@
 
 #include "../Model/book.h"
 #include "../Model/author.h"
+#include "../Model/hashed_author.h"
 #include <stdio.h>
 #include <iostream>
 using namespace std;
@@ -20,6 +21,7 @@ void print_author(Author *a);
 void print_book_q(Book *b);
 void print_book_t(Book *b);
 void print_book_a(Book *b);
+void print_hashed_authors(HashedAuthor **list, int size);
 void print_message(TRACE_TYPE type, string message);
 void trace(TRACE_TYPE type, string message);
 void trace_i(TRACE_TYPE type, string message, int param);

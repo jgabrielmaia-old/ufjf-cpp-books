@@ -49,6 +49,13 @@ void print_message(TRACE_TYPE type, string message)
     }
 }
 
+void print_hashed_authors(HashedAuthor **list, int size) {
+    for (size_t i = 0; i < size; i++)
+    {
+        cout << list[i]->hit_count << "|" << list[i]->name << endl;
+    }
+}
+
 void trace(TRACE_TYPE type, string message)
 {
     print_message(type, message);

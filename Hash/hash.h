@@ -22,10 +22,8 @@ public:
 
 class HashTable
 {
-private:
-    int capacity;
-
 public:
+    int capacity;
     HashNode **nodes;
     HashTable(int capacity);
     ~HashTable();
@@ -38,5 +36,7 @@ public:
     void print_hash_table_hits();
     void search_authors_in_books(Book **books, int library_size);
 };
+
+void swap_values(HashNode *a, HashNode *b);
 
 #endif

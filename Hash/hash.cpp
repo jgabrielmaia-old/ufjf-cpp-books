@@ -84,12 +84,14 @@ HashNode *HashTable::fetch(int key)
     else
     {
         HashNode *current = this->nodes[hash];
+        HashNode *head = this->nodes[hash];
 
         while (current != nullptr)
         {
             if (current->key == key)
             {
                 current->hit_count++;
+
                 return current;
             }
 
@@ -97,6 +99,21 @@ HashNode *HashTable::fetch(int key)
         }
     }
     return nullptr;
+}
+
+void swap_values(HashNode *a, HashNode *b)
+{
+    int aux_key = a->key;
+    int aux_hit_count = a->hit_count;
+    Author *aux_value = a->value;
+
+    a->key = b->key;
+    a->hit_count = b->hit_count;
+    a->value = b->value;
+
+    b->key = aux_key;
+    b->hit_count = aux_hit_count;
+    b->value = aux_value;
 }
 
 void HashTable::print_hash_table()
