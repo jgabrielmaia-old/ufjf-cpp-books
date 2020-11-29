@@ -12,7 +12,10 @@
 
 int main(int argc, char const *argv[])
 {
-    int library_size = 200'000;
+    FILE *input_stream = fopen("entrada.txt", "r");
+    int *inputs = read_input(input_stream, 1);
+
+    int library_size = 200000;
     Book **books = (Book **)malloc(library_size * sizeof(Book *));
     FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 
@@ -21,7 +24,7 @@ int main(int argc, char const *argv[])
     trace_i(INFO, "Livros alocados em memoria: ", library_size);
     fclose(stream);
 
-    int authors_list_size = 50'464;
+    int authors_list_size = 50464;
     Author **authors = (Author **)malloc(authors_list_size * sizeof(Author *));
     FILE *author_stream = fopen("CSV/authors.csv", "r");
 
@@ -31,7 +34,7 @@ int main(int argc, char const *argv[])
 
     fclose(author_stream);
 
-    HashTable *authors_hash_table = new HashTable(1'000);
+    HashTable *authors_hash_table = new HashTable(1000);
 
     trace(INFO, "Mapeando autores para a tabela hash...");
     entities_to_hash(authors, authors_hash_table, authors_list_size);
@@ -49,8 +52,8 @@ int main(int argc, char const *argv[])
     quicksort_a(frequency_list, authors_list_size);
     trace(INFO, "Lista de frequencia ordenada.");
 
-    trace(INFO, "Consolidando resultados...");
-    string most_frequent_authors = hashed_authors_consolidate_in_string(frequency_list, 1000);
+    trace_i(INFO, "Consolidando resultados. Tamanho da lista de autores: ", inputs[0]);
+    string most_frequent_authors = hashed_authors_consolidate_in_string(frequency_list, inputs[0]);
     trace(INFO, "Resultados consolidados.");
 
     trace(INFO, "Gerando saida...");

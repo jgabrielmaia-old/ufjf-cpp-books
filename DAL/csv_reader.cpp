@@ -113,17 +113,20 @@ Author *get_author_fields(char *line)
                 field += line[i];
             }
 
+            // Fixing unknown author issue where it has an ID but I want to explicit tell that its id will be -1
+            if (field_pos == 1 && field.length() == 0) {
+                strcpy(author->name, "UNKNOWN");
+                author->id = -1;
+                continue;
+            }
+
             switch (field_pos)
             {
             case 0:
                 author->id = stoi(field.c_str());
                 break;
             case 1:
-                if(field.length() > 0)
-                    strcpy(author->name, field.c_str());
-                else{
-                    strcpy(author->name, "UNKNOWN");
-                }
+                strcpy(author->name, field.c_str());
                 break;
             default:
                 break;

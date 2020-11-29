@@ -26,7 +26,7 @@ int *parse_author_ids(string authors)
         }
 
         if (author_id_str.length() == 0){
-            author_ids[count++] = -1;
+           author_ids[count++] = -1;
         }
         else{
             author_ids[count++] = stoi(author_id_str);
