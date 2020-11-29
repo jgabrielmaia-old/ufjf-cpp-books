@@ -13,7 +13,7 @@ class HashNode
 {
 public:
     int hit_count;
-    string key;
+    int key;
     Author *value;
     HashNode *next;
     HashNode();
@@ -30,13 +30,13 @@ public:
     HashTable(int capacity);
     ~HashTable();
 
-    int hashString(string s, int capacity);
+    int hash_int(int number, int capacity);
 
     void insert(Author *value);
-    HashNode *fetch(string key);
+    HashNode *fetch(int key);
     void print_hash_table();
     void print_hash_table_hits();
-    void search(HashTable table, Book **books, int library_size);
+    void search_authors_in_books(Book **books, int library_size);
 };
 
 #endif

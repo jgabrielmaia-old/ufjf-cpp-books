@@ -1,4 +1,5 @@
 #include "csv_reader.h"
+#include "parsing.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,7 +33,8 @@ Author **read_authors_from_csv(FILE *stream, int take)
 
     while (fgets(line, 1024, stream) && m < take)
     {
-        authors[m++] = get_author_fields(line);
+        if(line[0] == '\"')
+            authors[m++] = get_author_fields(line);
     }
 
     return authors;
@@ -92,7 +94,6 @@ Book *get_fields(char *line)
             }
         }
     }
-
     return book;
 }
 
@@ -115,7 +116,7 @@ Author *get_author_fields(char *line)
             switch (field_pos)
             {
             case 0:
-                strcpy(author->id, field.c_str());
+                author->id = stoi(field.c_str());
                 break;
             case 1:
                 if(field.length() > 0)

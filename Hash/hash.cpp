@@ -7,22 +7,22 @@ using namespace std;
 
 const string EMPTY_STR = "";
 
-int HashTable::hashString(string s, int capacity)
+int HashTable::hash_int(int number, int capacity)
 {
     int hash = 0;
-    for (int i = 0; i < s.length(); i++)
-    {
-        hash = (PRIME * (s[i] * s[i]) + hash) % capacity;
-    }
+    if (number < 0)
+        number = -number;
+
+    hash = (PRIME * number) % capacity;
     return hash;
 }
 
 HashNode::HashNode(Author *value)
 {
     this->value = (Author *)malloc(sizeof(Author));
-    strcpy(this->value->id, value->id);
+    this->value->id = value->id;
     strcpy(this->value->name, value->name);
-    this->key = value->name;
+    this->key = value->id;
     this->hit_count = 0;
     this->next = nullptr;
 }
@@ -52,7 +52,8 @@ HashTable::~HashTable()
 
 void HashTable::insert(Author *to_insert)
 {
-    int hash = this->hashString(to_insert->name, this->capacity);
+    int hash = this->hash_int(to_insert->id, this->capacity);
+
     HashNode *current = this->nodes[hash];
 
     HashNode *new_node = new HashNode(to_insert);
@@ -65,9 +66,12 @@ void HashTable::insert(Author *to_insert)
     this->nodes[hash] = new_node;
 }
 
-HashNode *HashTable::fetch(string key)
+HashNode *HashTable::fetch(int key)
 {
-    int hash = hashString(key, this->capacity);
+    int hash = this->hash_int(key, this->capacity);
+
+    if(hash < 0)
+        cout << hash;
 
     if (this->nodes[hash] == nullptr)
         return nullptr;
@@ -146,7 +150,25 @@ void HashTable::print_hash_table_hits()
     }
 }
 
-void HashTable::search(HashTable table, Book **books, int library_size)
+void HashTable::search_authors_in_books(Book **books, int library_size)
 {
+    for (size_t i = 0; i < library_size; i++)
+    {
+        if(books[i] == nullptr){
+            continue;
+        }
 
+        if(books[i]-> authors == nullptr){
+            continue;
+        }
+
+        for (size_t j = 0; j < 10; j++)
+        {
+            int current_author_id = books[i]->authors[j];
+            if (current_author_id == 0)
+                break;
+
+            this->fetch(current_author_id);
+        }
+    }
 };

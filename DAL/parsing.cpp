@@ -3,8 +3,9 @@
 
 #include <stdlib.h>
 
-int* parse_author_ids(string authors) {
-    int *author_ids = (int *) malloc (10 * sizeof(int));
+int *parse_author_ids(string authors)
+{
+    int *author_ids = (int *)malloc(10 * sizeof(int));
     for (size_t i = 0; i < 10; i++)
     {
         author_ids[i] = 0;
@@ -13,24 +14,24 @@ int* parse_author_ids(string authors) {
     int count = 0;
     for (size_t i = 0; i < authors.length(); i++)
     {
+        if(authors[0] != '[')
+            break;
+
         string author_id_str;
-        while(authors[++i] != ']') {
-            if(authors[i] == ',')
+        while (authors[++i] != ']')
+        {
+            if (authors[i] == ',')
                 break;
             author_id_str += authors[i];
         }
 
-        if(author_id_str.length() > 0)
-            author_ids[count++] = stoi(author_id_str);
-        else
+        if (author_id_str.length() == 0){
             author_ids[count++] = -1;
+        }
+        else{
+            author_ids[count++] = stoi(author_id_str);
+        }
     }
 
-    for (size_t i = 0; i < 10; i++)
-    {
-        cout << author_ids[i] << " | ";
-    }
-
-    cout << endl;
     return author_ids;
 }

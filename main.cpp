@@ -12,7 +12,7 @@
 
 int main(int argc, char const *argv[])
 {
-    int library_size = 1'000;
+    int library_size = 1'000'000;
     Book **books = (Book **)malloc(library_size * sizeof(Book *));
     FILE *stream = fopen("CSV/dataset_simp_sem_descricao.csv", "r");
 
@@ -31,11 +31,17 @@ int main(int argc, char const *argv[])
 
     fclose(author_stream);
 
-    HashTable *authors_hash_table = new HashTable(authors_list_size);
+    HashTable *authors_hash_table = new HashTable(1000);
 
+    trace(INFO, "Mapeando autores para a tabela hash ");
     entities_to_hash(authors, authors_hash_table, authors_list_size);
+    trace(INFO, "Tabela hash de autores populada.");
 
-    // search(authors_hash_table, books, library_size);
+    trace(INFO, "Pesquisar autores nos livros");
+    authors_hash_table->search_authors_in_books(books, library_size);
+    trace(INFO, "Autores pesquisados");
+
+    //authors_hash_table->print_hash_table_hits();
 
     return 0;
 }
