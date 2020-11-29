@@ -33,16 +33,29 @@ int main(int argc, char const *argv[])
 
     HashTable *authors_hash_table = new HashTable(1'000);
 
-    trace(INFO, "Mapeando autores para a tabela hash ");
+    trace(INFO, "Mapeando autores para a tabela hash...");
     entities_to_hash(authors, authors_hash_table, authors_list_size);
     trace(INFO, "Tabela hash de autores populada.");
 
-    trace(INFO, "Pesquisar autores nos livros");
+    trace(INFO, "Pesquisar autores nos livros...");
     authors_hash_table->search_authors_in_books(books, library_size);
     trace(INFO, "Autores pesquisados");
 
+    trace(INFO, "Populando lista de frequencia...");
     HashedAuthor **frequency_list = hashed_authors_to_list(authors_hash_table, authors_list_size);
+    trace(INFO, "Lista de frequencia populada.");
 
-    print_hashed_authors(frequency_list, authors_list_size);
+    trace(INFO, "Ordenando lista de frequencia...");
+    quicksort_a(frequency_list, authors_list_size);
+    trace(INFO, "Lista de frequencia ordenada.");
+
+    trace(INFO, "Consolidando resultados...");
+    string most_frequent_authors = hashed_authors_consolidate_in_string(frequency_list, 1000);
+    trace(INFO, "Resultados consolidados.");
+
+    trace(INFO, "Gerando saida...");
+    write_to_file("most_frequent_authors.txt", most_frequent_authors);
+    trace(INFO, "Saida gerada.");
+
     return 0;
 }

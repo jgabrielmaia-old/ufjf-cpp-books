@@ -15,7 +15,8 @@ void print_book(Book *b)
     cout << endl;
 }
 
-void print_author(Author *a){
+void print_author(Author *a)
+{
     cout << a->id << "|" << a->name;
 }
 
@@ -49,11 +50,22 @@ void print_message(TRACE_TYPE type, string message)
     }
 }
 
-void print_hashed_authors(HashedAuthor **list, int size) {
+void print_hashed_authors(HashedAuthor **list, int size)
+{
     for (size_t i = 0; i < size; i++)
     {
         cout << list[i]->hit_count << "|" << list[i]->name << endl;
     }
+}
+
+string hashed_authors_consolidate_in_string(HashedAuthor **list, int size)
+{
+    string output;
+    for (size_t i = 0; i < size; i++)
+    {
+        output += to_string(list[i]->hit_count) + "|" + list[i]->name + "\r\n";
+    }
+    return output;
 }
 
 void trace(TRACE_TYPE type, string message)
